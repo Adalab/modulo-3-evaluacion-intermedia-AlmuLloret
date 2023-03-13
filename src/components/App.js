@@ -10,6 +10,10 @@ function App() {
 const [quote, setQuote] = useState ("");
 const [character, setCharacter] = useState (""); 
 const [friends,setFriends] = useState ([]); 
+const [newFriend, setNewFriend] = useState ({
+  quote:"",
+  character:"",
+});
 
 // Effect functions 
 
@@ -64,7 +68,15 @@ useEffect(  () => {
     setCharacter(event.target.value);
   }
 
+  const handleNewFriend = (event) => {
+    setNewFriend({ ...newFriend, [event.target.id]: event.target.value });
+  };
 
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    setFriends([...friends, newFriend]);
+    setNewFriend({ quote: '', character: ''});
+  };
 
 
 // HTLML
@@ -93,7 +105,7 @@ useEffect(  () => {
           </label>
           <label htmlFor="character">Filtrar por personaje
             <select onChange={handleChangeCharacter} value={character} name="character" id="character">
-                <option value="Todos" >Todos</option>
+                <option value="Todos" default>Todos</option>
                 <option value="Ross">Ross</option>
                 <option value="Monica">Monica</option>
                 <option value="Joey">Joey</option>
@@ -106,7 +118,33 @@ useEffect(  () => {
       </section>
       {/* Add friends */}
       <section>
+        <h2>Add a new quote</h2>
+        <form>
+          <input
+            type="text"
+            name="quote"
+            id="quote"
+            placeholder="Type the new quote"
+            value={newFriend.quote}
+            onInput={handleNewFriend}
+           />
+          
+           <input
+            type="text"
+            name="character"
+            id="character"
+            placeholder="Type character"
+            value={newFriend.character}
+            onInput={handleNewFriend}
+          />
+           <input
+            type="submit"
+            value="Add a new quote"
+            onClick={handleClick}
+          />
 
+
+        </form>
       </section>
     </main>
 
