@@ -40,7 +40,7 @@ useEffect(  () => {
         eachFriend.character.toLocaleLowerCase().includes(character.toLocaleLowerCase())
       )
       .map((oneFriend,i) => (
-        <li key={i}>
+        <li key={i} className="list">
           <p>{oneFriend.quote}</p>
           <p>{oneFriend.character}</p>
         </li>
